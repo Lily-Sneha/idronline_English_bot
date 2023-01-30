@@ -1,0 +1,29 @@
+{
+  "name": "my-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sneha",
+  "license": "ISC",
+  "dependencies": {
+    "file-system": "^1.2.9",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.1.0",
+    "grammy": "^1.13.0",
+    "node-cron": "^3.0.2",
+    "rss-parser": "^3.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lily-Sneha/idronline_English_bot.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Lily-Sneha/idronline_English_bot/issues"
+  },
+  "homepage": "https://github.com/Lily-Sneha/idronline_English_bot#readme"
+}
