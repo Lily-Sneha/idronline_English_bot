@@ -17,20 +17,11 @@ import { addChat } from './db.js';
 //importing removeChat function from db.js
 import { removeChat } from './db.js';
 
-// cron.schedule('* * * * *', () => {
-//     // console.log('running a task every second');
-//     // console.log("hello lily")
-//     bot.api.sendMessage(2090813076, "<i>welcome to the chatbot lily</i>", {
-//         parse_mode: "HTML"
-//     })
-// });
 
+cron.schedule("*/3 * * * *", async () => {
+    await getChat()
 
-// cron.schedule("*/3 * * * *", () => {
-//     bot.api.sendMessage(2090813076, `<b>${feed.items[i].creator}</b>, \n <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b>,\n <i>${feed.items[1].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`, {
-//         parse_mode: "HTML",
-//     })
-// })
+})
 
 
 getWebPost()
