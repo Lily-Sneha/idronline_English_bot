@@ -2,7 +2,7 @@
 import { Bot, InlineKeyboard } from 'grammy';
 
 //  Creating an instance of the `Bot` class and passing token to it. 
-export const bot = new Bot("6139853250:AAE-9qf62ZZ1HfmGW3cLmpUFrrouTBMpwbk"); //using token here
+export const bot = new Bot(process.env.BOT_TOKEN); //using token here
 
 //importing cron liabrary from node cron
 import cron from "node-cron"
