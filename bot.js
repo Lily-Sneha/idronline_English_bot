@@ -19,14 +19,14 @@ import { removeChat } from './db.js';
 
 
 cron.schedule("* * * * *", async () => {
-    await getChat()
+    // await getChat()
+    await getWebPost()
 
 })
 
-
 getWebPost()
 
-// command is a listener for all commands
+// .command is a listener for all commands
 bot.command('start', async ctx => {
     // sendMessage is listener for all messages
     bot.api.sendMessage(ctx.message.from.id, "No turning back now 🤭Hope you're as excited as us🥳. Now you can get the updates in the idr directly in your DM's.",
