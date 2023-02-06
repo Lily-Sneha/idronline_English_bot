@@ -18,7 +18,7 @@ import { addChat } from './db.js';
 import { removeChat } from './db.js';
 
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("*/3 * * * *", async () => {
     // await getChat()
     await getWebPost()
 
