@@ -19,7 +19,6 @@ import { removeChat } from './db.js';
 
 
 cron.schedule("*/3 * * * *", async () => {
-    // await getChat()
     await getWebPost()
 
 })
@@ -43,6 +42,22 @@ bot.command('start', async ctx => {
 
 });
 
+
+
+// donation 
+bot.command('donate', async ctx => {
+    // sendMessage is listener for all messages
+    bot.api.sendMessage(ctx.message.from.id, "Now you can donate to idr through this link: https://idronline.org/donate/",
+        {
+            reply_to_message_id: ctx.message.message_id,
+            disable_web_page_preview: true,
+            reply_markup: new InlineKeyboard().url(
+                "Open Post",
+                `https://idronline.org/donate/`
+            )
+        })
+
+});
 
 
 // Remove function calling based on condition
