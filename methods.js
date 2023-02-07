@@ -41,6 +41,7 @@ export async function getWebPost() {
         updatepost = latestpost - lastPost
         console.log("update" + updatepost)
         data.totalpost = latestpost;
+        await updatePosts(latestpost)
 
     }
 

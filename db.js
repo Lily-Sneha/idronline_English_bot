@@ -27,15 +27,20 @@ const db = await main()
 
 // posts collection (table of posts), method in mongo db
 const posts = db.collection("posts")
-export async function updatePosts(latestpost) {
+export async function updatePosts(latestnum) {
     await posts.updateOne(
         { _id: "postData" },
         {
             $set: {
-                totalpost: latestpost
+                totalpost: latestnum
             }
         }
-    )
+    ).then(() => {
+        return true;
+    }).catch((er) => {
+        console.log(`Unable to add chat in DB: ${er}`);
+        return false;
+    });
 }
 
 
@@ -78,18 +83,18 @@ export async function getChat() {
 
 
 // Remove function 
-export async function removeChat(chatId){
+export async function removeChat(chatId) {
     // check if same User already exists.
     const item = await chat.findOne({ _id: chatId });
     if (!item) return false;
-  
+
     // if yes, remove from db.
     await chat.deleteOne({
-      _id: chatId
-    }).catch((err) =>{
+        _id: chatId
+    }).catch((err) => {
         console.log(`Unable to remove chat frm DB: ${err}`);
     })
-    
-  }
+
+}
 
 // await updatePosts(11)
