@@ -84,6 +84,7 @@ bot.on("my_chat_member", async ctx => {
 
 );
 
+// error handler
 bot.catch((err) => {
     const ctx = err.ctx;
     console.error(`Error while handling update ${ctx.update.update_id}:`);
