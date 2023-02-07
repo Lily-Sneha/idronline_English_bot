@@ -24,7 +24,7 @@ let parser = new Parser();
 
 export async function getWebPost() {
     let feed = await parser.parseURL('https://idronline.org/feed');
-   
+
 
     let allpost = feed.items.length
     let latestpost = allpost
@@ -46,12 +46,12 @@ export async function getWebPost() {
     }
 
 
-// getChat function calling 
+    // getChat function calling 
     let allChats = await getChat()
 
     for (let i = 0; i < updatepost; i++) {
         for (let chatid of allChats) {
-            await bot.api.sendMessage(chatid._id, `<b>${feed.items[i].creator}</b>, \n <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b>,\n <i>${feed.items[1].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`, {
+            await bot.api.sendMessage(chatid._id, ` <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b>,\n Author: <i>${feed.items[i].creator}</i>,\n <i>${feed.items[1].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`, {
                 parse_mode: "HTML",
                 disable_web_page_preview: true,
                 reply_markup: new InlineKeyboard().url(
