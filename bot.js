@@ -52,7 +52,7 @@ bot.command('donate', async ctx => {
             reply_to_message_id: ctx.message.message_id,
             disable_web_page_preview: true,
             reply_markup: new InlineKeyboard().url(
-                "Open Post",
+                "Open link",
                 `https://idronline.org/donate/`
             )
         })
