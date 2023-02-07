@@ -51,14 +51,19 @@ export async function getWebPost() {
 
     for (let i = 0; i < updatepost; i++) {
         for (let chatid of allChats) {
-            await bot.api.sendMessage(chatid._id, ` <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b>,\n Author: <i>${feed.items[i].creator}</i>,\n <i>${feed.items[1].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`, {
-                parse_mode: "HTML",
-                disable_web_page_preview: true,
-                reply_markup: new InlineKeyboard().url(
-                    "Open Post",
-                    feed.items[i].link
-                )
-            })
+            try{
+                await bot.api.sendMessage(chatid._id, ` <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b>,\n Author: <i>${feed.items[i].creator}</i>,\n <i>${feed.items[1].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`, {
+                    parse_mode: "HTML",
+                    disable_web_page_preview: true,
+                    reply_markup: new InlineKeyboard().url(
+                        "Open Post",
+                        feed.items[i].link
+                    )
+                })
+            }catch(e){
+                console.log(e)
+            }
+            
         }
 
 
