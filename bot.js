@@ -27,7 +27,7 @@ getWebPost()
 
 // .command is a listener for all commands
 bot.command('start', async ctx => {
-    // sendMessage is listener for all messages
+
     bot.api.sendMessage(ctx.message.from.id, "No turning back now 🤭Hope you're as excited as us🥳. Now you can get the updates in the idr directly in your DM's.",
         {
             reply_to_message_id: ctx.message.message_id,
@@ -44,9 +44,9 @@ bot.command('start', async ctx => {
 
 
 
-// donation 
+// donation section
 bot.command('donate', async ctx => {
-    // sendMessage is listener for all messages
+
     bot.api.sendMessage(ctx.message.from.id, "Now you can donate to idr through this link: https://idronline.org/donate/",
         {
             reply_to_message_id: ctx.message.message_id,
@@ -61,6 +61,7 @@ bot.command('donate', async ctx => {
 
 
 // Remove function calling based on condition
+// bot.on listener for all types of messages
 bot.on("my_chat_member", async ctx => {
     if (ctx.myChatMember.chat.type == 'private') {
         if (ctx.myChatMember.new_chat_member.status == "member" && ctx.myChatMember.old_chat_member.status == "kicked") {

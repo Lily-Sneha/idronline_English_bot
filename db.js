@@ -25,7 +25,7 @@ async function main() {
 const db = await main()
 
 
-// posts collection (table of posts), method in mongo db
+// posts collection (table of posts)method
 const posts = db.collection("posts")
 export async function updatePosts(latestnum) {
     await posts.updateOne(
@@ -52,7 +52,7 @@ export async function getPosts() {
 }
 
 
-// chats collection (table of chats)
+// chats collection (table of chats)method
 const chat = db.collection("chat")
 
 export async function addChat(userId, chatName, chatType) {
