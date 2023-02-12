@@ -9,6 +9,7 @@ dotenv.config()
 
 
 async function main() {
+    // taking URL from Mongo DB
     const mongo_url = process.env.MONGO_URL
     const client = new MongoClient(mongo_url)
 
@@ -27,19 +28,21 @@ const db = await main()
 
 // posts collection (table of posts)method
 const posts = db.collection("posts")
-export async function updatePosts(latestnum) {
+export async function updatePosts(id) {
     await posts.updateOne(
-        { _id: "postData" },
+        {
+            _id: "postData"
+        },
         {
             $set: {
                 // totalpost: latestnum
-                guidIndex:id
+                guidIndex: id
             }
         }
     ).then(() => {
         return true;
     }).catch((er) => {
-        console.log(`Unable to add chat in DB: ${er}`);
+        console.log(`Unable to add posts number in DB: ${er}`);
         return false;
     });
 }
@@ -54,23 +57,44 @@ export async function getPosts() {
 
 
 // chats collection (table of chats)method
-const chat = db.collection("chat")
 
-export async function addChat(userId, chatName, chatType) {
-    const chats = await chat.insertOne(
+// const chat = db.collection("chat")
+// export async function addChat(userId, chatName, chatType) {
+//     const chats = await chat.insertOne(
+//         {
+//             _id: userId,
+//             Name: chatName,
+//             Type: chatType
+//         }
+//     ).then(() => {
+//         //console.log(`Inserted user to DB`);
+//         return true;
+//     }).catch((er) => {
+//         console.log(`Unable to add chat in DB: ${er}`);
+//         return false;
+//     });
+//     return chats;
+// }
+
+const chat = db.collection("chat")
+export async function addChat(chatId, chatName, chatType) {
+    const item = await chat.findOne({ _id: chatId });
+    if (item) return false;
+
+    await chat.insertOne(
         {
-            _id: userId,
+            _id: chatId,
             Name: chatName,
             Type: chatType
         }
-    ).then(() => {
-        //console.log(`Inserted user to DB`);
-        return true;
-    }).catch((er) => {
-        console.log(`Unable to add chat in DB: ${er}`);
-        return false;
-    });
-    return chats;
+    )
+        .then(() => {
+            //console.log(`Inserted user to DB`);
+            return true;
+        }).catch((er) => {
+            console.log(`Unable to add chatid in DB: ${er}`);
+            return false;
+        });
 }
 
 

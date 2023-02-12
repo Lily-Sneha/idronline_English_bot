@@ -5,8 +5,7 @@ import Parser from "rss-parser";
 // importing bot variable from bot.js file
 import { bot } from "./bot.js";
 
-// importing fs from fs
-import fs from 'fs';
+// import fs from 'fs';
 
 // importing InlineKeyboard class from grammy
 import { InlineKeyboard } from "grammy";
@@ -48,9 +47,10 @@ export async function getWebPost() {
 
     // GUID **************************
     console.log(feed.items.guid)
+    console.log(feed.items)
     let firstGuid = feed.items[0].guid
-    console.log("firstGUID" + firstGuid)
-    let result = await getChat()
+    // console.log("firstGUID" + firstGuid)
+    let result = await getPosts()
 
 
     let dbGuid = result.guidIndex
