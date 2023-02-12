@@ -32,7 +32,8 @@ export async function updatePosts(latestnum) {
         { _id: "postData" },
         {
             $set: {
-                totalpost: latestnum
+                // totalpost: latestnum
+                guidIndex:id
             }
         }
     ).then(() => {
