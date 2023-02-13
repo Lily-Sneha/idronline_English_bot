@@ -17,13 +17,8 @@ import { addChat } from './db.js';
 //importing removeChat function from db.js
 import { removeChat } from './db.js';
 
-
-cron.schedule("*/3 * * * *", async () => {
-    await getWebPost()
-
-})
-
-getWebPost()
+import * as dotenv from "dotenv"
+dotenv.config()
 
 
 // .command is a listener for all commands
@@ -32,6 +27,7 @@ bot.command('start', async ctx => {
     bot.api.sendMessage(ctx.message.from.id, "No turning back now 🤭Hope you're as excited as us🥳. Now you can get the updates in the idr directly in your DM's.",
         {
             reply_to_message_id: ctx.message.message_id,
+            allow_sending_without_reply: true,
             reply_markup: new InlineKeyboard().url(
                 "Open link",
                 `https://idronline.org`
@@ -61,22 +57,24 @@ bot.command('donate', async ctx => {
 });
 
 
-// Remove function calling based on condition
 // bot.on listener for all types of messages
 bot.on("my_chat_member", async ctx => {
     if (ctx.myChatMember.chat.type == 'private') {
+
         if (ctx.myChatMember.new_chat_member.status == "member" && ctx.myChatMember.old_chat_member.status == "kicked") {
+            // remove user from database
             await removeChat(ctx.myChatMember.from.id)
         }
     }
 
     else if (bot.botInfo.id == ctx.myChatMember.old_chat_member.user.id) {
-
+        // bot added in group                                       // bot added in channel 
         if (ctx.myChatMember.new_chat_member.status == "member" || ctx.myChatMember.new_chat_member.status == "administrator") {
+
             await bot.api.sendMessage(ctx.myChatMember.chat.id, "Thanks for adding me to this group🙏. Now you can get the new updates here 🙂.")
             await addChat(ctx.myChatMember.chat.id, ctx.myChatMember.chat.title, ctx.myChatMember.chat.type)
         }
-
+        // remove the bot from group                                                //remove bot from channel
         else if (ctx.myChatMember.new_chat_member.status == "kicked" || ctx.myChatMember.new_chat_member.status == "left") {
             await removeChat(ctx.myChatMember.chat.id)
         }
@@ -85,6 +83,17 @@ bot.on("my_chat_member", async ctx => {
 }
 
 );
+
+
+
+// scheduled time through cron job
+cron.schedule("*/10 * * * *", async () => {
+    await getWebPost()
+
+});
+
+
+
 
 // error handler
 bot.catch((err) => {

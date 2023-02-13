@@ -35,7 +35,6 @@ export async function updatePosts(id) {
         },
         {
             $set: {
-                // totalpost: latestnum
                 guidIndex: id
             }
         }
@@ -57,25 +56,6 @@ export async function getPosts() {
 
 
 // chats collection (table of chats)method
-
-// const chat = db.collection("chat")
-// export async function addChat(userId, chatName, chatType) {
-//     const chats = await chat.insertOne(
-//         {
-//             _id: userId,
-//             Name: chatName,
-//             Type: chatType
-//         }
-//     ).then(() => {
-//         //console.log(`Inserted user to DB`);
-//         return true;
-//     }).catch((er) => {
-//         console.log(`Unable to add chat in DB: ${er}`);
-//         return false;
-//     });
-//     return chats;
-// }
-
 const chat = db.collection("chat")
 export async function addChat(chatId, chatName, chatType) {
     const item = await chat.findOne({ _id: chatId });

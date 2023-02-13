@@ -17,36 +17,16 @@ import { updatePosts, getPosts } from "./db.js";
 import { getChat } from "./db.js";
 
 
-
+// make a new parser
 let parser = new Parser();
 
 
 export async function getWebPost() {
+    // get all the items in the RSS feed
     let feed = await parser.parseURL('https://idronline.org/feed');
 
-
-    // let allpost = feed.items.length
-    // let latestpost = allpost
-    // console.log("latest" + latestpost);
-
-
-    // let data = await getPosts()
-    // let lastPost = data.totalpost;
-    // let updatepost = 0
-    // data.totalpost = latestpost;
-
-
-    // if (latestpost != lastPost) {
-    //     updatepost = latestpost - lastPost
-    //     console.log("update" + updatepost)
-    //     data.totalpost = latestpost;
-    //     await updatePosts(latestpost)
-
-    // }
-
-
     // GUID **************************
-    console.log(feed.items.guid)
+    console.log(feed.items[3].guid)
     console.log(feed.items)
     let firstGuid = feed.items[0].guid
     // console.log("firstGUID" + firstGuid)
@@ -61,14 +41,13 @@ export async function getWebPost() {
         // getChat function calling 
         let allChats = await getChat()
 
-        // for (let i = 0; i<updatePosts; i++) 
         for (let i = dbpostIndex - 1; i >= 0; i--) {
 
             for (let chatid of allChats) {
                 console.log(chatid._id)
                 // taking all chat ids here 
                 try {
-                    await bot.api.sendMessage(chatid._id, ` <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b>,\n Author: <i>${feed.items[i].creator}</i>,\n <i>${feed.items[i].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`,
+                    await bot.api.sendMessage(chatid._id, ` <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b> \n Author:- <i>${feed.items[i].creator}</i> \n\n <i>${feed.items[i].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`,
                         {
                             parse_mode: "HTML",
                             disable_web_page_preview: true,
@@ -89,6 +68,3 @@ export async function getWebPost() {
 
 // getPost()
 
-
-
-// GUID ***************************************************
