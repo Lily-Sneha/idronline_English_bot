@@ -8,14 +8,14 @@ export const bot = new Bot(process.env.BOT_TOKEN); //using token here
 import cron from "node-cron"
 
 //importing getPost function from methods.js
-import { getWebPost } from './methods.js';
+import { getWebPost, sleep } from './methods.js';
 
 // importing addChat function from db.js file
 import { addChat } from './db.js';
 
 
 //importing removeChat function from db.js
-import { removeChat } from './db.js';
+import { removeChat, getChat } from './db.js';
 
 import * as dotenv from "dotenv"
 dotenv.config()
@@ -38,6 +38,42 @@ bot.command('start', async ctx => {
     }
 
 });
+
+
+
+bot.command("jrbc").filter(
+    async (ctx) => {
+        // check if the command is from admin & is a reply.
+        return ctx.message.reply_to_message && ctx.message.from.id === 1004813228;
+    },
+    async (ctx) => {
+        // Get all subcribers from database.
+        const allChats = await getChat();
+        // store the success and failed data in broadcast
+        const failedChats = [];
+        const successChats = [];
+        for (let chat of allChats) {
+            // Broadcast to chats
+            try {
+                await bot.api.copyMessage(chat._id, ctx.message.chat.id, ctx.message.reply_to_message.message_id);
+                successChats.push(chat._id);
+                await sleep(3000);
+            } catch (e) {
+                failedChats.push(chat._id);
+                console.log(e);
+            }
+
+        }
+        // after broadcast show the statistics to admin.
+        await bot.api.sendMessage(1004813228, `Broadcast completed with ${successChats.length} users. Failed count ${failedChats.length}`);
+        await bot.api.sendMessage(1004813228, `Success: ${successChats.toString()} \n Fail: ${failedChats.toString()}`);
+
+
+    }
+);
+
+
+
 
 
 
