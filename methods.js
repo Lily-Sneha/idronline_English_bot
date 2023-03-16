@@ -20,6 +20,10 @@ import { getChat } from "./db.js";
 // make a new parser
 let parser = new Parser();
 
+export function sleep(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
 
 export async function getWebPost() {
     // get all the items in the RSS feed
@@ -57,6 +61,9 @@ export async function getWebPost() {
                             )
                         }
                     )
+
+                    await sleep(2000)
+
                 } catch (e) {
                     console.log(e)
                 }
@@ -67,8 +74,6 @@ export async function getWebPost() {
 }
 
 
-export function sleep(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
+
 // getPost()
 

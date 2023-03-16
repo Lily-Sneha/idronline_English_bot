@@ -90,6 +90,8 @@ bot.command('donate', async ctx => {
             )
         })
 
+        
+
 });
 
 
