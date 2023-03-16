@@ -30,8 +30,8 @@ export async function getWebPost() {
     let feed = await parser.parseURL('https://idronline.org/feed');
 
     // GUID **************************
-    console.log(feed.items[3].guid)
-    console.log(feed.items)
+    // console.log(feed.items[3].guid)
+    // console.log(feed.items)
     let firstGuid = feed.items[0].guid
     // console.log("firstGUID" + firstGuid)
     let result = await getPosts()
@@ -48,7 +48,7 @@ export async function getWebPost() {
         for (let i = dbpostIndex - 1; i >= 0; i--) {
 
             for (let chatid of allChats) {
-                console.log(chatid._id)
+                // console.log(chatid._id)
                 // taking all chat ids here 
                 try {
                     await bot.api.sendMessage(chatid._id, ` <b><a href="${feed.items[i].link}">${feed.items[i].title}</a></b> \n Author:- <i>${feed.items[i].creator}</i> \n\n <i>${feed.items[i].content.replace(/<[^>]*>?/gm, '').slice(0, 300)} ...<a href="${feed.items[i].link}">Read more...</a></i>`,
