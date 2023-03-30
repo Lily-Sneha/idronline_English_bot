@@ -10,11 +10,10 @@ import { bot } from "./bot.js";
 // importing InlineKeyboard class from grammy
 import { InlineKeyboard } from "grammy";
 
-// importing updatePosts and  getPosts function from db.js file
-import { updatePosts, getPosts } from "./db.js";
+// importing updatePosts, getPosts and getChat function from db.js file
+import { updatePosts, getPosts,getChat } from "./db.js";
 
-// importing addchat function from db.js file
-import { getChat } from "./db.js";
+
 
 
 // make a new parser
@@ -72,8 +71,5 @@ export async function getWebPost() {
 
     }
 }
-
-
-
 // getPost()
 

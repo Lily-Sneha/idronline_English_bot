@@ -1,5 +1,5 @@
 // importing Bot class and InlineKeyboard class from grammy liabrary
-import { Bot, InlineKeyboard } from 'grammy';
+import { Bot, InlineKeyboard,GrammyError,HttpError } from 'grammy';
 
 //  Creating an instance of the `Bot` class and passing token to it. 
 export const bot = new Bot(process.env.BOT_TOKEN); //using token here
@@ -10,12 +10,8 @@ import cron from "node-cron"
 //importing getPost function from methods.js
 import { getWebPost, sleep } from './methods.js';
 
-// importing addChat function from db.js file
-import { addChat } from './db.js';
-
-
-//importing removeChat function from db.js
-import { removeChat, getChat } from './db.js';
+//importing removeChat,getChat and addChat function from db.js
+import { removeChat, getChat,addChat } from './db.js';
 
 import * as dotenv from "dotenv"
 dotenv.config()
@@ -62,13 +58,10 @@ bot.command("jrbc").filter(
                 failedChats.push(chat._id);
                 console.log(e);
             }
-
         }
         // after broadcast show the statistics to admin.
         await bot.api.sendMessage(1004813228, `Broadcast completed with ${successChats.length} users. Failed count ${failedChats.length}`);
         await bot.api.sendMessage(1004813228, `Success: ${successChats.toString()} \n Fail: ${failedChats.toString()}`);
-
-
     }
 );
 
@@ -90,7 +83,7 @@ bot.command('donate', async ctx => {
             )
         })
 
-        
+
 
 });
 
